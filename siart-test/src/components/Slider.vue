@@ -2,6 +2,7 @@
 import Card from '@/components/Card.vue'
 import IconPrevious from '@/components/icons/IconPrevious.vue'
 import IconNext from '@/components/icons/IconNext.vue'
+import data from '@/data/data.json'
 
 defineProps({
   sliderTitle: {
@@ -9,6 +10,9 @@ defineProps({
     required: true
   },
 })
+
+const items = data.products;
+
 </script>
 
 <template>
@@ -17,24 +21,21 @@ defineProps({
       <h2 class="slider__title">{{ sliderTitle }}</h2>
       <div class="slider__buttons">
         <button class="slider__button">
-          <IconPrevious/>
+          <IconPrevious />
         </button>
         <button class="slider__button">
-          <IconNext/>
+          <IconNext />
         </button>
       </div>
     </div>
     <div class="slider__track">
-        <Card
-          cardTitle="Тонометр механический CS Medica CS-106 с фонедоскопом dfdf dfdf dfd"
-          cardPrice=234
-        />
+      <Card v-for="item in items" :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
+        :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
     </div>
   </section>
 </template>
 
 <style scoped>
-
 .slider {
   padding: 4.2em 8.2em 2em 8.2em;
   background-color: var(--color-background-slider);
@@ -83,7 +84,9 @@ defineProps({
 }
 
 .slider__track {
-  padding: 1.3em 0;
+  margin: 1.3em 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.4em;
 }
-
 </style>

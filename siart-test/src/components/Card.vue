@@ -1,16 +1,41 @@
 <script setup>
-  import IconQuickView from '@/components/icons/IconQuickView.vue'
+import IconQuickView from '@/components/icons/IconQuickView.vue'
+import IconLike from '@/components/icons/IconLike.vue';
+import IconCompare from '@/components/icons/IconCompare.vue';
+import IconReview from '@/components/icons/IconReview.vue';
+import IconToCard from '@/components/icons/IconToCard.vue'
+import IconPlus from '@/components/icons/IconPlus.vue'
+import IconMinus from '@/components/icons/IconMinus.vue'
 
-  defineProps({
-    cardTitle: {
-      type: String,
-      required: true
-    },
-    cardPrice: {
-      type: String,
-      required: true
-    }
-  })
+defineProps({
+  itemId: {
+    type: Number
+  },
+  itemTitle: {
+    type: String,
+  },
+  itemUrl: {
+    type: String
+  },
+  itemPrice: {
+    type: Number,
+  },
+  itemOldPrice: {
+    type: Number,
+  },
+  itemNumber: {
+    type: Number,
+  },
+  itemSticker: {
+    type: String
+  },
+  isFavorite: {
+    type: Boolean
+  },
+  isCompare: {
+    type: Boolean
+  }
+})
 
 
 </script>
@@ -19,26 +44,56 @@
   <article class="card">
     <div class="card__head">
       <button class="card__quick-view">
-        <IconQuickView/>
+        <IconQuickView />
         <span>Быстрый просмотр</span>
       </button>
-      <img class="card__image" src="../assets/images/1.png" :alt="cardTitle">
+      <div class="card__favorite">
+        <button class="button-icon button-icon_like">
+          <IconCompare />
+        </button>
+        <button class="button-icon button-icon_compare">
+          <IconLike />
+        </button>
+      </div>
+      <span class="card__number">Арт: {{ itemNumber }}</span>
+      <button class="card__review">
+        <IconReview />
+        5
+      </button>
+      <img class="card__image" :src="`images/${itemId}.png`" :alt="itemTitle">
     </div>
     <div class="card__body">
-      <h3 class="card__title" :title="`${ cardTitle }`">{{ cardTitle }}</h3>
+      <h3 class="card__title" :title="itemTitle">{{ itemTitle }}</h3>
       <div class="stickers">
-        <span>В наличии</span>
-        <span>Хит</span>
-        <span>Новинка</span>
-        <span>Акция</span>
+        <span class="sticker sticker_in-stock">В наличии</span>
+        <span class="sticker sticker_new">Новинка</span>
+        <span class="sticker sticker_stock">Акция</span>
       </div>
-      <span>{{ cardPrice }} ₽ шт</span>
+      <div class="card__price">
+        <div class="current-price">{{ itemPrice }} ₽ <span>шт.</span></div>
+        <div class="old-price">{{ itemOldPrice }} ₽</div>
+      </div>
+      <div class="card__buttons">
+        <button class="card-button">Заказать</button>
+        <!-- <button>
+          <IconToCard />
+          <span>В корзину</span>
+        </button>
+        <div class="counter">
+          <button>
+            <IconMinus />
+          </button>
+          <input type="text" value="1">
+          <button>
+            <IconPlus />
+          </button>
+        </div> -->
+      </div>
     </div>
   </article>
 </template>
 
 <style scoped lang="scss">
-
 .card {
   padding: 0.5em 0.75em;
   width: 100%;
@@ -79,8 +134,8 @@
   transform: translate(-50%, -50%);
   white-space: nowrap;
   box-shadow: 0 2px 7px 0 rgba(28, 45, 64, .12);
-  
-  & > span {
+
+  &>span {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -88,13 +143,120 @@
   }
 }
 
-.card__title {
-  display: -webkit-box; /* Включаем поддержку многострочного текста */
-  -webkit-line-clamp: 2; /* Ограничиваем текст до 2 строк */
-  -webkit-box-orient: vertical; /* Устанавливаем направление блока на вертикальное */
-  overflow: hidden; /* Прячем лишний текст */
-  text-overflow: ellipsis; /* Добавляем многоточие */
+.card__favorite {
+  position: absolute;
+  display: flex;
+  gap: 4px;
+  top: 5px;
+  right: 5px;
 }
 
+.button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+  background-color: var(--color-white);
+  box-shadow: 0 2px 5px 0 rgba(28, 45, 64, .1);
+}
 
+.card__number {
+  position: absolute;
+  padding: 4px 6px;
+  background-color: var(--color-white);
+  left: 4px;
+  bottom: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  color: var(--color-text);
+}
+
+.card__review {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  right: 4px;
+  bottom: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 12px;
+  color: var(--color-text);
+}
+
+.card__title {
+  margin-top: 24px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-clamp: 3;
+  min-height: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px;
+}
+
+.card__price {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.current-price {
+  font-size: 20px;
+  font-weight: 600;
+
+  &>span {
+    font-size: 16px;
+    color: var(--color-grey);
+  }
+}
+
+.old-price {
+  color: var(--color-grey);
+  text-decoration: line-through;
+}
+
+.stickers {
+  margin-top: 12px;
+  display: flex;
+  gap: 4px;
+}
+
+.sticker {
+  padding: 4px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.sticker_in-stock {
+  color: var(--color-green);
+  background-color: var(--color-light-green);
+}
+
+.sticker_new {
+  color: var(--color-white);
+  background-color: var(--color-blue);
+}
+
+.sticker_stock {
+  color: var(--color-white);
+  background-color: var(--color-green);
+}
+
+.card__buttons {
+  margin-top: 20px;
+}
+
+.card-button {
+  width: 100%;
+  padding: 14px;
+  color: var(--color-blue);
+  border-radius: 12px;
+  border: 1px solid var(--color-blue);
+}
 </style>
