@@ -1,5 +1,6 @@
 <script setup>
 
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { register } from 'swiper/element/bundle';
 import { useSwiper } from 'swiper/vue';
 
@@ -18,7 +19,6 @@ defineProps({
 })
 
 const items = data.products;
-const swiper = useSwiper();
 
 </script>
 
@@ -35,7 +35,8 @@ const swiper = useSwiper();
         </button>
       </div>
     </div>
-    <swiper-container slides-per-view="5" speed="500" loop="true" modules="[Pagination]" :pagination="true">
+    <swiper-container slides-per-view="5" speed="500" loop="true" modules="[Pagination, Navigation]" :navigation="true"
+      :pagination="true">
       <swiper-slide v-for="item in items" :key="item.id">
         <Card :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
           :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
