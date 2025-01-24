@@ -34,6 +34,20 @@
       "price": 3736,
       "oldPrice": 4000,
       "number": 3323335
+    },
+    {
+      "id": 6,
+      "title": "Насадки CS Medica SP-12 для зубной щетки CS Medica SonicPulsar CS-131",
+      "price": 3736,
+      "oldPrice": 4000,
+      "number": 3323335
+    },
+    {
+      "id": 7,
+      "title": "Насадки CS Medica SP-12 для зубной щетки CS Medica SonicPulsar CS-131",
+      "price": 3736,
+      "oldPrice": 4000,
+      "number": 3323335
     }
   ],
   "stickers": ["В наличии", "Хит", "Новинка", "Акция", "%"]

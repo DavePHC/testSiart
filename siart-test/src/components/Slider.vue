@@ -1,8 +1,14 @@
 <script setup>
+
+import { register } from 'swiper/element/bundle';
+import { useSwiper } from 'swiper/vue';
+
 import Card from '@/components/Card.vue'
 import IconPrevious from '@/components/icons/IconPrevious.vue'
 import IconNext from '@/components/icons/IconNext.vue'
 import data from '@/data/data.json'
+
+register();
 
 defineProps({
   sliderTitle: {
@@ -12,6 +18,7 @@ defineProps({
 })
 
 const items = data.products;
+const swiper = useSwiper();
 
 </script>
 
@@ -20,18 +27,20 @@ const items = data.products;
     <div class="slider__header">
       <h2 class="slider__title">{{ sliderTitle }}</h2>
       <div class="slider__buttons">
-        <button class="slider__button">
+        <button class="slider__button slider__button_previous">
           <IconPrevious />
         </button>
-        <button class="slider__button">
+        <button @click="swiper.slideNext()" class="slider__button slider__button_next">
           <IconNext />
         </button>
       </div>
     </div>
-    <div class="slider__track">
-      <Card v-for="item in items" :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
-        :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
-    </div>
+    <swiper-container slides-per-view="5" speed="500" loop="true" modules="[Pagination]" :pagination="true">
+      <swiper-slide v-for="item in items" :key="item.id">
+        <Card :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
+          :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
+      </swiper-slide>
+    </swiper-container>
   </section>
 </template>
 
@@ -42,6 +51,7 @@ const items = data.products;
 }
 
 .slider__header {
+  margin-bottom: 1.3em;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,7 +65,7 @@ const items = data.products;
 
 .slider__buttons {
   display: flex;
-  border: 1px solid var(--color-border-light-grey);
+  border: 1px solid var(--color-light-grey);
   border-radius: 100px;
   padding: 0.25em;
 }
@@ -72,21 +82,14 @@ const items = data.products;
 }
 
 .slider__button:hover {
-  background-color: var(--color-button-slider-hover);
+  background-color: var(--color-light-blue-hover);
 }
 
 .slider__button:focus-within {
-  background-color: var(--color-button-slider-hover);
+  background-color: var(--color-light-blue-hover);
 }
 
 .slider__button:active {
-  background-color: var(--color-button-slider-active);
-}
-
-.slider__track {
-  margin: 1.3em 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1.4em;
+  background-color: var(--color-light-blue);
 }
 </style>

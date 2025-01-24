@@ -1,14 +1,20 @@
 :root {
-  --color-background-slider: #F5F8FA;
-  --color-border-light-grey: #ECEFF8;
-  --color-button-slider-hover: #E2EEFC;
-  --color-button-slider-active: #DAE8FA;
-  --color-text: #1A1A1A;
-  --color-grey: #6A727B;
   --color-white: #fff;
+  --color-black: #000;
+  --color-background-slider: #F5F8FA;
+  --color-text: #1A1A1A;
+  --color-light-grey: #ECEFF8;
+  --color-grey: #6A727B;
   --color-green: #64B847;
   --color-light-green: #F0F7EE;
   --color-blue: #4092F1;
+  --color-blue-hover: #3886E1;
+  --color-blue-active: #2176DA;
+  --color-light-blue-default: #EDF5FE;
+  --color-light-blue-hover: #E2EEFC;
+  --color-light-blue-active: #DAE8FA;
+  --color-red-invalid: #FAF1F1;
+  --color-input-hover: #EFF2F6;
 }
 
 *,

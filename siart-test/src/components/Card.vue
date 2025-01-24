@@ -74,12 +74,12 @@ defineProps({
         <div class="old-price">{{ itemOldPrice }} ₽</div>
       </div>
       <div class="card__buttons">
-        <button class="card-button">Заказать</button>
-        <!-- <button>
+        <button class="card-button card-button_order">Заказать</button>
+        <button class="card-button card-button_in-card">
           <IconToCard />
           <span>В корзину</span>
         </button>
-        <div class="counter">
+        <div class="card__counter">
           <button>
             <IconMinus />
           </button>
@@ -87,7 +87,7 @@ defineProps({
           <button>
             <IconPlus />
           </button>
-        </div> -->
+        </div>
       </div>
     </div>
   </article>
@@ -164,6 +164,7 @@ defineProps({
 
 .card__number {
   position: absolute;
+  border-radius: 5px 5px 0 0;
   padding: 4px 6px;
   background-color: var(--color-white);
   left: 4px;
@@ -175,6 +176,7 @@ defineProps({
 
 .card__review {
   position: absolute;
+  border-radius: 5px 5px 0 0;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -249,14 +251,79 @@ defineProps({
 }
 
 .card__buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   margin-top: 20px;
 }
 
 .card-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  font-size: 16px;
   padding: 14px;
   color: var(--color-blue);
   border-radius: 12px;
-  border: 1px solid var(--color-blue);
+  transition: .4s;
+}
+
+.card-button_order {
+  outline: 1px solid var(--color-blue);
+  background-color: var(--color-white);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--color-light-grey);
+  }
+
+  &:active {
+    background-color: var(--color-light-blue-active);
+  }
+}
+
+.card-button_in-card {
+  gap: 10px;
+  background-color: var(--color-light-blue-default);
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--color-light-blue-hover);
+  }
+
+  &:active {
+    background-color: var(--color-light-blue-active);
+  }
+}
+
+.card__counter {
+  display: flex;
+  gap: 8px;
+
+  & button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    border: 1px solid var(--color-light-grey);
+    width: 48px;
+    height: 48px;
+  }
+
+  & input {
+    font-weight: 500;
+    border-radius: 7px;
+    border: 1px solid var(--color-light-grey);
+    color: var(--color-black);
+    text-align: center;
+    transition: .4s;
+
+    &:focus {
+      outline: none;
+      background-color: var(--color-light-blue-default);
+      border: 1px solid var(--color-light-blue-default);
+    }
+  }
 }
 </style>
