@@ -38,7 +38,6 @@ import IconDoc from '@/components/icons/IconDoc.vue';
       </form>
     </div>
   </section>
-
 </template>
 
 <style scoped lang="scss">
@@ -257,7 +256,7 @@ import IconDoc from '@/components/icons/IconDoc.vue';
 @media (min-width: 1600px) {
 
   .section-form {
-    padding: 48px 130px;
+    padding: 68px 130px;
   }
 
   .form-head h2 {

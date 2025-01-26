@@ -89,19 +89,20 @@ const items = data.products;
 </script>
 
 <template>
-  <section class="slider">
-    <div class="slider__header">
-      <h2 class="slider__title">{{ sliderTitle }}</h2>
-      <div class="slider__buttons">
-        <button class="slider__button slider__button_previous">
-          <IconPrevious />
-        </button>
-        <button id="sliderB" class="slider__button slider__button_next">
-          <IconNext />
-        </button>
+  <section class="section-slider">
+    <div class="slider">
+      <div class="slider__header">
+        <h2 class="slider__title">{{ sliderTitle }}</h2>
+        <div class="slider__buttons">
+          <button class="slider__button slider__button_previous">
+            <IconPrevious />
+          </button>
+          <button id="sliderB" class="slider__button slider__button_next">
+            <IconNext />
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="slider__body">
+      <div class="slider__body">
       <swiper-container ref="swiper" init="false">
         <swiper-slide v-for="item in items" key="key">
           <Card :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
@@ -109,20 +110,13 @@ const items = data.products;
         </swiper-slide>
       </swiper-container>
     </div>
+  </div>
   </section>
 </template>
 
-<style>
+<style scoped>
 
-  .swiper {
-    overflow: visible;
-  }
-
-  .swiper-pagination {
-    background-color: red !important;
-  }
-
-  .slider {
+  .section-slider {
     padding: 24px 20px;
     background-color: var(--color-background-slider);
   }
@@ -175,12 +169,36 @@ const items = data.products;
     overflow: hidden;
   }
 
+  @media (min-width: 578px) {
+    .section-slider {
+      padding: 48px 56px;
+    }
+  }
+
   @media (min-width: 768px) {
+
+    .section-slider {
+      padding: 48px 36px;
+    }
 
     .slider__buttons {
       display: flex;
     }
 
+  }
+
+  @media (min-width: 1025px) {
+
+    .section-slider {
+      padding: 48px 108px;
+    }
+
+  }
+
+  @media (min-width: 1600px) {
+    .section-slider {
+      padding: 68px 130px;
+    }
   }
 
 </style>

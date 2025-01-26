@@ -4,10 +4,12 @@ import Form from '@/components/Form.vue'
 </script>
 
 <template>
+  <header></header>
   <main>
     <Slider sliderTitle="Новое поступление"/>
     <Form/>
   </main>
+  <footer></footer>
 </template>
 
 <style scoped>

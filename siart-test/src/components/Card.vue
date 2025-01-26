@@ -190,8 +190,11 @@ defineProps({
 
 .card__title {
   margin-top: 8px;
+  line-height: 1.4em;
+  min-height: 4.2em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
+          line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -299,8 +302,9 @@ defineProps({
 }
 
 .card__counter {
-  display: flex;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: 36px 1fr 36px;
+  gap: 4px;
 
   & button {
     display: flex;
@@ -308,8 +312,12 @@ defineProps({
     justify-content: center;
     border-radius: 7px;
     border: 1px solid var(--color-light-grey);
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
+    svg {
+      width: 14px;
+      height: 14px;
+    }
   }
 
   & input {
