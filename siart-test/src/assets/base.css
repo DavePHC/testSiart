@@ -16,9 +16,8 @@
   --color-light-blue-active: #DAE8FA;
   --color-red-invalid: #FAF1F1;
   --color-input-hover: #EFF2F6;
-  --swiper-pagination-bottom: -20px;
-
-
+  /* Swiper */
+  --swiper-pagination-bottom: -22px;
   /* Sizes */
   --max-width-submit-button: 200px;
   --base-text-line-height: 20px;

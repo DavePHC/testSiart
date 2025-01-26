@@ -83,7 +83,7 @@ defineProps({
           <button>
             <IconMinus />
           </button>
-          <input type="text" value="1">
+          <input type="text" name="counter" value="1">
           <button>
             <IconPlus />
           </button>
@@ -189,35 +189,35 @@ defineProps({
 }
 
 .card__title {
-  margin-top: 24px;
+  margin-top: 8px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  line-clamp: 3;
-  min-height: 72px;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 16px;
 }
 
 .card__price {
-  margin-top: 20px;
+  margin-top: 12px;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .current-price {
-  font-size: 20px;
+  font-size: 16px;
+  line-height: 20px;
   font-weight: 600;
-
+  order: 1;
   &>span {
-    font-size: 16px;
+    font-size: 14px;
     color: var(--color-grey);
   }
 }
 
 .old-price {
+  font-size: 12px;
+  line-height: 16px;
   color: var(--color-grey);
   text-decoration: line-through;
 }
@@ -229,10 +229,10 @@ defineProps({
 }
 
 .sticker {
-  padding: 4px 8px;
-  font-size: 12px;
+  padding: 2px 4px;
+  font-size: 8px;
   font-weight: 700;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .sticker_in-stock {
@@ -254,7 +254,7 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 12px;
 }
 
 .card-button {
@@ -262,10 +262,11 @@ defineProps({
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: 16px;
-  padding: 14px;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 8px;
   color: var(--color-blue);
-  border-radius: 12px;
+  border-radius: 8px;
   transition: .4s;
 }
 
@@ -312,6 +313,7 @@ defineProps({
   }
 
   & input {
+    width: 100%;
     font-weight: 500;
     border-radius: 7px;
     border: 1px solid var(--color-light-grey);

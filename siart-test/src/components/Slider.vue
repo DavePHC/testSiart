@@ -1,14 +1,56 @@
 <script setup>
 
-import {ref} from 'vue';
+import { ref, onMounted } from 'vue';
 import { register } from 'swiper/element/bundle';
+import { Navigation, Pagination } from 'swiper/modules'
+register();
 
 import Card from '@/components/Card.vue'
 import IconPrevious from '@/components/icons/IconPrevious.vue'
 import IconNext from '@/components/icons/IconNext.vue'
 import data from '@/data/data.json'
 
-register();
+const swiper = ref();
+
+onMounted(() => {
+  Object.assign(swiper.value, params)
+  swiper.value.initialize()
+})
+
+const params = {
+  modules: [Navigation, Pagination],
+  navigation: { nextEl: '.slider__button_next', prevEl: '.slider__button_previous' },
+  pagination: true,
+  injectStyles: [
+    `.swiper {
+        overflow: visible;
+      }`
+  ],
+  slidesPerView: 2,
+  spaceBetween: 10,
+  breakpoints: {
+      320: {
+      slidesPerView: 2,
+      spaceBetween: 10,
+    },
+    640: {
+      slidesPerView: 3,
+      spaceBetween: 10,
+    },
+    768: {
+      slidesPerView: 4,
+      spaceBetween: 15,
+    },
+    1024: {
+      slidesPerView: 5,
+      spaceBetween: 10,
+    },
+    1400: {
+      slidesPerView: 5,
+      spaceBetween: 15,
+    }
+  }
+}
 
 defineProps({
   sliderTitle: {
@@ -19,30 +61,30 @@ defineProps({
 
 const items = data.products;
 
-const breakpoints = ref({
-  320: {
-    slidesPerView: 2,
-    spaceBetween: 10,
-  },
-  640: {
-    slidesPerView: 3,
-    spaceBetween: 10,
-  },
-  768: {
-    slidesPerView: 4,
-    spaceBetween: 15,
-  },
-  1024: {
-    slidesPerView: 5,
-    spaceBetween: 10,
-    pagination: false
-  },
-  1400: {
-    slidesPerView: 5,
-    spaceBetween: 15,
-    pagination: false
-  },
-});
+// const breakpoints = ref({
+//   320: {
+//     slidesPerView: 2,
+//     spaceBetween: 10,
+//   },
+//   640: {
+//     slidesPerView: 3,
+//     spaceBetween: 10,
+//   },
+//   768: {
+//     slidesPerView: 4,
+//     spaceBetween: 15,
+//   },
+//   1024: {
+//     slidesPerView: 5,
+//     spaceBetween: 10,
+//     pagination: false
+//   },
+//   1400: {
+//     slidesPerView: 5,
+//     spaceBetween: 15,
+//     pagination: false
+//   },
+// });
 
 </script>
 
@@ -60,12 +102,7 @@ const breakpoints = ref({
       </div>
     </div>
     <div class="slider__body">
-      <swiper-container
-        spaceBetween="5"
-        speed="400"
-        :pagination="true"
-        :breakpoints="breakpoints"
-        :navigation="{ nextEl: '.slider__button_next', prevEl: '.slider__button_previous' }">
+      <swiper-container ref="swiper" init="false">
         <swiper-slide v-for="item in items" key="key">
           <Card :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
             :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
