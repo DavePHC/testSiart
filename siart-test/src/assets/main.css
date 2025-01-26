@@ -1,16 +1,5 @@
 @import './base.css';
 
-/* #app {
-  width: 100vw;
-} */
-
-button {
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-}
-
-/* @media (hover: hover) {
-  
-} */
+.swiper {
+    overflow: visible !important;
+  }

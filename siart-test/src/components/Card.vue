@@ -100,7 +100,7 @@ defineProps({
   max-width: 316px;
   background-color: var(--color-white);
   border-radius: 1em;
-  box-shadow: 0 0 10 0 rgba(28, 45, 64, .05);
+  box-shadow: 0 0 10px 0 rgba(28, 45, 64, .05);
 }
 
 .card__head {

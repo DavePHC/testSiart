@@ -1,8 +1,7 @@
 <script setup>
 
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import {ref} from 'vue';
 import { register } from 'swiper/element/bundle';
-import { useSwiper } from 'swiper/vue';
 
 import Card from '@/components/Card.vue'
 import IconPrevious from '@/components/icons/IconPrevious.vue'
@@ -20,6 +19,31 @@ defineProps({
 
 const items = data.products;
 
+const breakpoints = ref({
+  320: {
+    slidesPerView: 2,
+    spaceBetween: 10,
+  },
+  640: {
+    slidesPerView: 3,
+    spaceBetween: 10,
+  },
+  768: {
+    slidesPerView: 4,
+    spaceBetween: 15,
+  },
+  1024: {
+    slidesPerView: 5,
+    spaceBetween: 10,
+    pagination: false
+  },
+  1400: {
+    slidesPerView: 5,
+    spaceBetween: 15,
+    pagination: false
+  },
+});
+
 </script>
 
 <template>
@@ -30,67 +54,96 @@ const items = data.products;
         <button class="slider__button slider__button_previous">
           <IconPrevious />
         </button>
-        <button @click="swiper.slideNext()" class="slider__button slider__button_next">
+        <button id="sliderB" class="slider__button slider__button_next">
           <IconNext />
         </button>
       </div>
     </div>
-    <swiper-container slides-per-view="5" speed="500" loop="true" modules="[Pagination, Navigation]" :navigation="true"
-      :pagination="true">
-      <swiper-slide v-for="item in items" :key="item.id">
-        <Card :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
-          :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
-      </swiper-slide>
-    </swiper-container>
+    <div class="slider__body">
+      <swiper-container
+        spaceBetween="5"
+        speed="400"
+        :pagination="true"
+        :breakpoints="breakpoints"
+        :navigation="{ nextEl: '.slider__button_next', prevEl: '.slider__button_previous' }">
+        <swiper-slide v-for="item in items" key="key">
+          <Card :key="item.id" :itemId="item.id" :itemTitle="item.title" :itemPrice="item.price"
+            :itemOldPrice="item.oldPrice" :itemNumber="item.number" />
+        </swiper-slide>
+      </swiper-container>
+    </div>
   </section>
 </template>
 
-<style scoped>
-.slider {
-  padding: 4.2em 8.2em 2em 8.2em;
-  background-color: var(--color-background-slider);
-}
+<style>
 
-.slider__header {
-  margin-bottom: 1.3em;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+  .swiper {
+    overflow: visible;
+  }
 
-.slider__title {
-  font-weight: 500;
-  font-size: 1.75em;
-  line-height: 1.3;
-}
+  .swiper-pagination {
+    background-color: red !important;
+  }
 
-.slider__buttons {
-  display: flex;
-  border: 1px solid var(--color-light-grey);
-  border-radius: 100px;
-  padding: 0.25em;
-}
+  .slider {
+    padding: 24px 20px;
+    background-color: var(--color-background-slider);
+  }
 
-.slider__button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  transition: .4s;
-}
+  .slider__header {
+    margin-bottom: 1.3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.slider__button:hover {
-  background-color: var(--color-light-blue-hover);
-}
+  .slider__title {
+    font-weight: 500;
+    font-size: 1.75em;
+    line-height: 1.3;
+  }
 
-.slider__button:focus-within {
-  background-color: var(--color-light-blue-hover);
-}
+  .slider__buttons {
+    display: none;
+    border: 1px solid var(--color-light-grey);
+    border-radius: 100px;
+    padding: 0.25em;
+  }
 
-.slider__button:active {
-  background-color: var(--color-light-blue);
-}
+  .slider__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    transition: .4s;
+  }
+
+  .slider__button:hover {
+    background-color: var(--color-light-blue-hover);
+  }
+
+  .slider__button:focus-within {
+    background-color: var(--color-light-blue-hover);
+  }
+
+  .slider__button:active {
+    background-color: var(--color-light-blue);
+  }
+
+  .slider__body {
+    padding-bottom: 18px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+
+    .slider__buttons {
+      display: flex;
+    }
+
+  }
+
 </style>
