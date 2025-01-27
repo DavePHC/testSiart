@@ -1,5 +1,27 @@
 <script setup>
+
+
+import { ref } from 'vue';
+
 import IconDoc from '@/components/icons/IconDoc.vue';
+import IconClose from '@/components/icons/IconClose.vue';
+import IconSmile from '@/components/icons/IconSmile.vue';
+
+
+const dialog = ref(null);
+
+const openDialog = () => {
+  if (dialog.value) {
+    dialog.value.showModal();
+  }
+};
+
+const closeDialog = () => {
+  if (dialog.value) {
+    dialog.value.close();
+  }
+};
+
 </script>
 
 <template>
@@ -24,7 +46,7 @@ import IconDoc from '@/components/icons/IconDoc.vue';
           <textarea id="textArea" class="form__text-area" name="message" rows="3" placeholder="Ваш вопрос"></textarea>
         </div>
         <div class="form__footer">
-          <button class="button-submit" type="submit">
+          <button @click.prevent="openDialog" class="button-submit" type="submit">
             Задать вопрос
           </button>
           <div class="agreement-wrapper">
@@ -37,11 +59,29 @@ import IconDoc from '@/components/icons/IconDoc.vue';
         </div>
       </form>
     </div>
+    <dialog ref="dialog" id="modalSuccess" class="modal-wrapper" aria-label="Благодарность за фидбек">
+      <div class="overlay">
+        <form class="modal">
+          <button @click.prevent="closeDialog" class="modal__close">
+            <IconClose />
+          </button>
+          <IconSmile />
+          <h3 class="modal__title">
+            Спасибо
+          </h3>
+          <p class="modal__text">
+            Вопрос отправлен
+          </p>
+          <button @click.prevent="closeDialog" class="modal__button">
+            Хорошо :)
+          </button>
+        </form>
+      </div>
+    </dialog>
   </section>
 </template>
 
 <style scoped lang="scss">
-
 .section-form {
   padding: 24px 20px;
 }
@@ -140,6 +180,7 @@ import IconDoc from '@/components/icons/IconDoc.vue';
   border-radius: 8px;
   transition: .4s;
   -webkit-tap-highlight-color: transparent;
+
   &:hover {
     background-color: var(--color-blue-hover);
   }
@@ -161,6 +202,7 @@ import IconDoc from '@/components/icons/IconDoc.vue';
   color: var(--color-grey);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
+
   a {
     color: inherit;
     font-weight: 500;
@@ -188,19 +230,98 @@ import IconDoc from '@/components/icons/IconDoc.vue';
   background-size: cover;
 }
 
-.hide-checkbox:checked + .fake-checkbox {
+.hide-checkbox:checked+.fake-checkbox {
   background-image: url(../../public/images/checkbox/checkbox-checked.svg);
 }
 
-.hide-checkbox:focus + .fake-checkbox {
+.hide-checkbox:focus+.fake-checkbox {
   background-image: url(../../public/images/checkbox/checkbox-focus.svg);
 }
 
-.hide-checkbox:checked:focus + .fake-checkbox {
+.hide-checkbox:checked:focus+.fake-checkbox {
   background-image: url(../../public/images/checkbox/checkbox-focus-checked.svg);
 }
 
 // END Agreement Checkbox
+
+// Modal
+
+.modal-wrapper {
+  padding: 0;
+  border: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  max-width: unset;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.modal {
+  padding: 72px 28px 28px 28px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-white);
+
+  &__title {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+  }
+
+  &__text {
+    font-size: 12px;
+    line-height: 20px;
+    color: var(--color-grey);
+  }
+
+  &__button {
+    padding: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-blue);
+    background-color: var(--color-light-blue-default);
+    border-radius: 8px;
+    width: 100%;
+    max-width: var(--max-width-submit-button);
+  }
+}
+
+.modal__close {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+  display: flex;
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-light-blue-default);
+  transition: .4s;
+
+  &:hover,
+  &:focus-within {
+    background-color: var(--color-light-blue-hover);
+    box-shadow: 0 0 7px 0 rgba(28, 45, 64, .12);
+  }
+
+  &:active {
+    background-color: var(--color-light-blue-active);
+    box-shadow: 0 0 7px 0 rgba(28, 45, 64, .1);
+  }
+}
+
+// END Modal
+
+
 
 // Media Queries
 
@@ -212,6 +333,10 @@ import IconDoc from '@/components/icons/IconDoc.vue';
 
   .agreement-wrapper {
     text-align: left;
+  }
+
+  .modal__title {
+    font-size: 16px;
   }
 
 }
@@ -237,6 +362,32 @@ import IconDoc from '@/components/icons/IconDoc.vue';
 
   .form__footer {
     flex-direction: row;
+  }
+
+  .modal-wrapper {
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+  }
+
+  .overlay {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal {
+    padding: 28px;
+    max-width: 422px;
+    min-height: unset;
+    height: auto;
+    border-radius: 24px;
+  }
+
+  .modal__close {
+    top: 0;
+    right: -40px;
   }
 
 }
@@ -279,6 +430,4 @@ import IconDoc from '@/components/icons/IconDoc.vue';
 
 }
 
-// END Media Queries
-
-</style>
+// END Media Queries</style>

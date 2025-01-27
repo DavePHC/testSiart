@@ -194,7 +194,7 @@ defineProps({
   min-height: 4.2em;
   display: -webkit-box;
   -webkit-line-clamp: 3;
-          line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -212,6 +212,7 @@ defineProps({
   line-height: 20px;
   font-weight: 600;
   order: 1;
+
   &>span {
     font-size: 14px;
     color: var(--color-grey);
@@ -314,6 +315,7 @@ defineProps({
     border: 1px solid var(--color-light-grey);
     width: 36px;
     height: 36px;
+
     svg {
       width: 14px;
       height: 14px;
@@ -335,5 +337,54 @@ defineProps({
       border: 1px solid var(--color-light-blue-default);
     }
   }
+}
+
+
+@media (min-width: 1400px) {
+
+  .sticker {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+
+  .card__price {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .current-price {
+    order: unset;
+  }
+
+}
+
+@media (min-width: 1600px) {
+
+  .current-price {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .old-price {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .card__counter button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .card__counter {
+    grid-template-columns: 48px 1fr 48px;
+    gap: 8px;
+  }
+
+  .card__counter button svg {
+    width: 18px;
+    height: 18px;
+  }
+
 }
 </style>
