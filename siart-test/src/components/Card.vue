@@ -1,11 +1,14 @@
 <script setup>
-import IconQuickView from '@/components/icons/IconQuickView.vue'
+
+import { onMounted, ref } from 'vue';
+
+import IconQuickView from '@/components/icons/IconQuickView.vue';
 import IconLike from '@/components/icons/IconLike.vue';
 import IconCompare from '@/components/icons/IconCompare.vue';
 import IconReview from '@/components/icons/IconReview.vue';
-import IconToCard from '@/components/icons/IconToCard.vue'
-import IconPlus from '@/components/icons/IconPlus.vue'
-import IconMinus from '@/components/icons/IconMinus.vue'
+import IconToCard from '@/components/icons/IconToCard.vue';
+import IconPlus from '@/components/icons/IconPlus.vue';
+import IconMinus from '@/components/icons/IconMinus.vue';
 
 defineProps({
   itemId: {
@@ -37,6 +40,14 @@ defineProps({
   }
 })
 
+
+
+let counter = ref(0);
+let isInCard = ref(false);
+
+function checkInCard () {
+  isInCard.value = counter.value > 0;
+}
 
 </script>
 
@@ -75,16 +86,16 @@ defineProps({
       </div>
       <div class="card__buttons">
         <button class="card-button card-button_order">Заказать</button>
-        <button class="card-button card-button_in-card">
+        <button v-show="!isInCard" @click.prevent="counter++" @click="checkInCard" class="card-button card-button_in-card">
           <IconToCard />
           <span>В корзину</span>
         </button>
-        <div class="card__counter">
-          <button>
+        <div v-show="isInCard" class="card__counter">
+          <button @click.prevent="counter--" @click="checkInCard">
             <IconMinus />
           </button>
-          <input type="text" name="counter" value="1">
-          <button>
+          <input v-model="counter" readonly type="text" min="1" name="counter">
+          <button @click.prevent="counter++">
             <IconPlus />
           </button>
         </div>
@@ -275,7 +286,7 @@ defineProps({
 }
 
 .card-button_order {
-  outline: 1px solid var(--color-blue);
+  box-shadow: 0 0 0 1px var(--color-blue);
   background-color: var(--color-white);
 
   &:hover,
